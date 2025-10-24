@@ -1,162 +1,211 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { FiMessageSquare, FiX } from 'react-icons/fi';
+import React, { useState, useEffect, useRef } from "react";
+import { FiX } from "react-icons/fi";
 import { motion } from "framer-motion";
-import { CohereClient } from "cohere-ai";
-import axios from 'axios';
+import axios from "axios";
 import assistent from "../../assets/assistent.png";
 
 const ChatBot = () => {
   const [chatAbierto, setChatAbierto] = useState(false);
   const [mensajes, setMensajes] = useState([]);
-  const [nuevoMensaje, setNuevoMensaje] = useState('');
-  const [escribiendo, setEscribiendo] = useState(false);
-  const [cohereToken, setCohereToken] = useState(null);
+  const [nuevoMensaje, setNuevoMensaje] = useState("");
   const [enviandoMensaje, setEnviandoMensaje] = useState(false);
-  const mensajesRef = useRef(null);
   const [mostrarTooltip, setMostrarTooltip] = useState(false);
+  const mensajesRef = useRef(null);
 
+  // Auto-scroll
   useEffect(() => {
-    obtenerTokenCohere();
-  }, []);
-
-  const obtenerTokenCohere = async () => {
-    try {
-      const response = await axios.get('https://dimgrey-gnu-703361.hostingersite.com/index.php?recurso=apiai');
-      const token = response.data[0]?.ia;
-      setCohereToken(token);
-    } catch (error) {
-      console.error('Error al obtener el token de la API:', error);
-    }
-  };
-
-  const handleMouseEnter = () => setMostrarTooltip(true);
-  const handleMouseLeave = () => setMostrarTooltip(false);
-
-  const scrollToBottom = () => {
     if (mensajesRef.current) {
       mensajesRef.current.scrollTop = mensajesRef.current.scrollHeight;
     }
-  };
-
-  useEffect(() => {
-    scrollToBottom();
   }, [mensajes]);
 
+  // ==============================
+  // 🔹 Enviar mensaje
+  // ==============================
   const handleEnviarMensaje = async () => {
     if (!nuevoMensaje.trim() || enviandoMensaje) return;
+
+    const texto = nuevoMensaje.trim();
+    setNuevoMensaje("");
+    setMensajes((prev) => [...prev, { texto, origen: "usuario" }]);
     setEnviandoMensaje(true);
-    setMensajes(prev => [...prev, { texto: nuevoMensaje, origen: 'usuario' }]);
-    setNuevoMensaje('');
+
+    // Mensaje temporal de carga
+    setMensajes((prev) => [
+      ...prev,
+      { texto: "Escribiendo...", origen: "asistente", temporal: true },
+    ]);
+
     try {
-      const respuesta = await obtenerRespuestaCohere(nuevoMensaje);
-      setMensajes(prev => [...prev, { texto: respuesta, origen: 'asistente' }]);
+      const respuesta = await obtenerRespuestaDesdeServidor(texto);
+
+      // Reemplazar mensaje temporal
+      setMensajes((prev) =>
+        prev.map((m) =>
+          m.temporal ? { texto: respuesta, origen: "asistente" } : m
+        )
+      );
+    } catch (error) {
+      const textoError =
+        error?.message ||
+        "Lo siento, hubo un problema al conectar con el asistente.";
+
+      setMensajes((prev) =>
+        prev.map((m) =>
+          m.temporal
+            ? { texto: `Error: ${textoError}`, origen: "asistente" }
+            : m
+        )
+      );
     } finally {
       setEnviandoMensaje(false);
     }
   };
 
-  const obtenerRespuestaCohere = async (userMessage) => {
+  // ==============================
+  // 🔹 Llamada al backend PHP
+  // ==============================
+  const obtenerRespuestaDesdeServidor = async (mensajeUsuario) => {
+    const endpoint = "https://gestoradmin.store/index.php?recurso=apiai";
+
     try {
-      if (!cohereToken) throw new Error('Token de Cohere no disponible');
+      const resp = await axios.post(
+        endpoint,
+        { mensaje: mensajeUsuario },
+        { timeout: 20000 } // 20 segundos de espera
+      );
 
-      const cohere = new CohereClient({
-        token: cohereToken,
-        language: "es",
-        model: "command-r-plus",
-      });
+      // Si el backend devolvió un error en JSON
+      if (resp.data?.error) {
+        throw new Error(resp.data.error);
+      }
 
-      setEscribiendo(true);
+      // Si hay respuesta normal
+      if (resp.data?.respuesta) {
+        return resp.data.respuesta;
+      }
 
-      const chatHistory = [
-        {
-          role: "SYSTEM",
-          message: `Eres un asistente de Fauno, das respuestas breves las respuestas no deben superar los cuatro renglones, eres argentino , fauno es un tatuador profesional de Santa Clara del Mar, ahora tatua en Mar del Plata en el estudio de Nahuel Herrera , ubicado en Jara al 22 entre santa cruz y rio negro. Como asistente virtual de Fauno, debes conocer que Fauno es un tatuador con más de siete años de experiencia y se destaca en la realización de diseños exclusivos. Se inspira en la naturaleza, animales, insectos, flora y fauna, además tatua en el estudio de @Nahuelherreratattoo un reconocido artista de Mar del Plata , Nahuel es experto en hiperrealismo , ademas de Nahuel , Fauno es compañero de David Garcia @garciadavidtattoo, otro reconocido artista de Mar del Plata ,David es experto en retrato de Animales . Debes responder con amabilidad preguntas referenciadas al mundo del tatuaje. Si están fuera del contexto del tatuaje o del arte, responde con un 'No conozco esos temas', si te piden el numero de telefono de fauno ,fauno tiene 27 años dales el siguiente link para que accedan :https://wa.me/2233407440, si te preguntan por paloma , es la novia y musa inspiradora de fauno , si te preguntan por el valor minimo de un tattoo , es de 30 mil pesos argentinos el valor minimo . Además, ten en cuenta que tienes un límite de respuesta de 70 tokens, evita superarlo. usa emojis .`
-        },
-        { role: "USER", message: userMessage }
-      ];
-
-      const response = await cohere.chat({
-        message: userMessage,
-        model: "command-r-plus",
-        chat_history: chatHistory,
-        language: "es",
-      });
-
-      setEscribiendo(false);
-      return response.text;
-    } catch (error) {
-      console.error('Error al llamar a Cohere AI:', error);
-      setEscribiendo(false);
-      return 'Lo siento, hubo un problema al procesar tu solicitud.';
+      // Si la estructura es inesperada
+      throw new Error("Respuesta inválida o vacía del servidor");
+    } catch (err) {
+      if (err.response) {
+        throw new Error(
+          err.response.data?.error ||
+            `Error HTTP ${err.response.status} desde el servidor`
+        );
+      } else if (err.request) {
+        throw new Error("No se recibió respuesta del servidor");
+      } else {
+        throw new Error(err.message);
+      }
     }
   };
 
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter') handleEnviarMensaje();
+  // ==============================
+  // 🔹 Eventos UI
+  // ==============================
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") handleEnviarMensaje();
   };
 
   const handleChatToggle = () => setChatAbierto(!chatAbierto);
   const handleCloseChat = () => setChatAbierto(false);
+  const handleMouseEnter = () => setMostrarTooltip(true);
+  const handleMouseLeave = () => setMostrarTooltip(false);
 
+  // ==============================
+  // 🔹 Render UI
+  // ==============================
   return (
-    <div className="fixed bottom-6 right-6 z-10">
+    <div className="fixed bottom-6 right-6 z-50 font-sans">
+      {/* BOTÓN FLOTANTE */}
       <button
         onClick={handleChatToggle}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        className={`flex items-center justify-center w-16 h-16 focus:outline-none ${chatAbierto ? 'hidden' : ''}`}
+        className={`flex items-center justify-center w-16 h-16 rounded-full shadow-lg transition-all duration-200 hover:scale-105 focus:outline-none ${
+          chatAbierto ? "hidden" : "bg-amber-100"
+        }`}
       >
-        <img src={assistent} alt="Asistente" className="w-16 h-16" />
+        <img src={assistent} alt="Asistente" className="w-12 h-12" />
       </button>
 
-      {mostrarTooltip && (
+      {/* TOOLTIP */}
+      {mostrarTooltip && !chatAbierto && (
         <motion.div
-          initial={{ opacity: 0, y: -20 }}
+          initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3 }}
-          className="absolute bottom-16 right-4 px-2 py-1 bg-[#4779a4] text-white text-sm rounded-md shadow-lg"
+          transition={{ duration: 0.2 }}
+          className="absolute bottom-16 right-4 px-3 py-1 bg-amber-200 text-gray-800 text-sm rounded-lg shadow"
         >
-          Soy tu asistente virtual
+          Soy tu asistente de Producción
         </motion.div>
       )}
 
+      {/* PANEL DEL CHAT */}
       {chatAbierto && (
-        <div className="bg-gradient-to-br from-[#4779a4] to-[#f7e7ce] p-4 rounded-t-lg shadow-lg w-80">
-          <div className="flex justify-between mb-2">
-            <button onClick={handleCloseChat}><FiX className="text-gray-600" /></button>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3 }}
+          className="bg-amber-50 p-4 rounded-xl shadow-2xl w-80 max-w-[90vw] flex flex-col max-h-[70vh] sm:max-h-[60vh] overflow-hidden border border-amber-200"
+        >
+          {/* HEADER */}
+          <div className="flex justify-between items-center mb-2 border-b border-amber-200 pb-2">
+            <span className="font-semibold text-gray-700 text-lg">
+              Asistente de Producción
+            </span>
+            <button
+              onClick={handleCloseChat}
+              className="text-gray-600 hover:text-gray-900"
+            >
+              <FiX size={20} />
+            </button>
           </div>
 
-          <div ref={mensajesRef} className="h-60 overflow-y-auto mb-2">
+          {/* MENSAJES */}
+          <div
+            ref={mensajesRef}
+            className="flex-1 overflow-y-auto mb-2 space-y-2 flex flex-col pr-1"
+            style={{ minHeight: "200px" }}
+          >
             {mensajes.map((mensaje, index) => (
-              <div key={index} className={`mb-2 ${mensaje.origen === 'usuario' ? 'text-right' : 'text-left'} px-4 py-2 rounded-lg bg-gradient-to-br from-[#6d9fcb]  to-[#1f6bae] text-white`}>
-                <strong>{mensaje.origen === 'usuario' ? 'Tú' : 'Asistente de NH Studio'}</strong>: {mensaje.texto}
-              </div>
-            ))}
-            {escribiendo && (
               <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5 }}
-                className="mb-2 text-left px-4 py-2 rounded-lg bg-[#4779a4]"
+                key={index}
+                initial={{ opacity: 0, y: 5 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.2 }}
+                className={`px-4 py-2 rounded-2xl max-w-[80%] break-words ${
+                  mensaje.origen === "usuario"
+                    ? "bg-amber-300 text-gray-900 self-end"
+                    : "bg-white text-gray-800 self-start border border-amber-100"
+                }`}
               >
-                <strong>NH Studio</strong>: ...
+                {mensaje.texto}
               </motion.div>
-            )}
+            ))}
           </div>
 
-          <div className="flex justify-between">
+          {/* INPUT */}
+          <div className="flex items-center mt-2 space-x-2 w-full">
             <input
               type="text"
               value={nuevoMensaje}
               onChange={(e) => setNuevoMensaje(e.target.value)}
-              onKeyPress={handleKeyPress}
-              placeholder="Escribí algo acá"
-              className="flex-1 border rounded-full px-4 py-2 outline-none"
+              onKeyDown={handleKeyDown}
+              placeholder="Escribí tu mensaje..."
+              className="flex-1 min-w-0 border border-amber-200 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-amber-300 bg-amber-50 text-gray-800"
               disabled={enviandoMensaje}
             />
-            <button onClick={handleEnviarMensaje} disabled={enviandoMensaje} className="ml-2 bg-gradient-to-br from-[#f7e7ce]  to-[#4779a4] rounded-full px-4 py-2 text-white font-semibold">Enviar</button>
+            <button
+              onClick={handleEnviarMensaje}
+              disabled={enviandoMensaje}
+              className="flex-shrink-0 bg-amber-300 hover:bg-amber-400 text-gray-900 rounded-full px-4 py-2 font-semibold shadow transition-all duration-200 disabled:opacity-60"
+            >
+              {enviandoMensaje ? "..." : "Enviar"}
+            </button>
           </div>
-        </div>
+        </motion.div>
       )}
     </div>
   );

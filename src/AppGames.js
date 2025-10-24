@@ -1,7 +1,7 @@
 import React from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
-import Roulette from "./pages/Roullette";
+import Home from "./pages/Home";
 import TablaPremios from "./pages/TablaPremios";
 const AppGames = () => {
   const location = useLocation();
@@ -9,8 +9,7 @@ const AppGames = () => {
   return (
     <AnimatePresence exitBeforeEnter>
       <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<Roulette />} />
-        <Route path="/games" element={<Roulette />} />
+        <Route path="/" element={<Home />} />
       </Routes>
     </AnimatePresence>
   );

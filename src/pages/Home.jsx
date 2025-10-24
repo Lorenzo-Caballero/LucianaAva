@@ -1,16 +1,16 @@
 import React from 'react';
 
 import { motion } from 'framer-motion';
-import WhatYouLearn from '../components/home/WhatYouLearn';
-import Hero from "../components/home/Hero";
-import Overview from '../components/home/Overview';
-import FeaturedProducts from '../components/home/FeaturedProducts';
+import VideoIntro from "../pages/VideoIntro"
+import Navbar from "../pages/Navbar"
 import ChatBot from '../components/home/ChatBot';
-import WhatsAppButton from "../pages/WhatsAppButton";
-import Collage from "../components/home/Collage"; 
-import OnlyCollage from '../components/home/OnlyCollage';
-import CourseContent from '../components/home/CourseContent';
-import CoursePriceInfo from '../components/home/CoursePrice';
+import ContactoTeatro from './Contact';
+import ElencoTeatro from './Elenco';
+import Hero from "./Hero";
+import InstagramButton from './InstagramButton';
+import SinopsisTeatro from './Sinopsis';
+import Footer from './Footer';
+import NewsCarousel from './Carousel';
 const containerVariants = {
   hidden: {
     opacity: 0
@@ -33,13 +33,15 @@ const Home = () => {
       initial="hidden"
       animate="visible"
     >
-      <Hero />
-      <WhatYouLearn />
-      <Overview />
-      <CourseContent/>
-      <WhatsAppButton/>
-      <CoursePriceInfo/>
-      <OnlyCollage/>
+      <Navbar />
+     <Hero/>
+     <SinopsisTeatro/>
+     <ElencoTeatro/>
+     <NewsCarousel/>
+     <ContactoTeatro/>
+     <Footer/>
+     <ChatBot/>
+     <InstagramButton/>
     </motion.main>
   );
 };
