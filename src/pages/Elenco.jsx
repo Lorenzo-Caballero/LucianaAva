@@ -1,5 +1,5 @@
 // src/components/ElencoTeatro.jsx
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useState as useStateReact } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import nube1 from "../assets/nube1.png";
 import nube2 from "../assets/nube2.png";
@@ -84,34 +84,49 @@ const elenco = [
   { nombre: "Julen Tavo Andiarena Lattes", rol: "Asistente de producción", foto: Julen },
 ];
 
+// Variants para animaciones
+const cardContainer = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.12,
+    },
+  },
+};
+
+const cardItem = {
+  hidden: { opacity: 0, y: 25 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.45, ease: "easeOut" } },
+};
+
 export default function ElencoTeatro() {
   const [selected, setSelected] = useState(null);
+  const [loadedImages, setLoadedImages] = useState({});
 
-  // 🚫 Bloquear scroll del fondo cuando el modal está abierto
+  // Bloquear scroll al abrir modal
   useEffect(() => {
-    if (selected) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
-    return () => {
-      document.body.style.overflow = "auto";
-    };
+    if (selected) document.body.style.overflow = "hidden";
+    else document.body.style.overflow = "auto";
+    return () => (document.body.style.overflow = "auto");
   }, [selected]);
+
+  const handleImageLoad = (name) => {
+    setLoadedImages((prev) => ({ ...prev, [name]: true }));
+  };
 
   return (
     <section
       id="equipo"
-      className="relative flex flex-col items-center justify-center min-h-screen px-4 sm:px-6 py-16 overflow-hidden scroll-mt-24"
+      className="relative flex flex-col items-center justify-start pt-10 pb-16 px-4 sm:px-6 overflow-hidden scroll-mt-24 font-milonga"
     >
-      {/* 🌈 Fondo animado */}
+      {/* Fondo animado */}
       <motion.div
         className="absolute inset-0 -z-10 bg-gradient-to-r from-[#EBA9D1] via-[#CBA8D6] to-[#F6D97E]"
         animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
         transition={{ duration: 25, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      {/* ☁️ Nubes */}
+      {/* Nubes */}
       <motion.img
         src={nube1}
         className="absolute top-10 left-0 w-48 sm:w-64 opacity-70 z-0"
@@ -125,41 +140,65 @@ export default function ElencoTeatro() {
         transition={{ duration: 50, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      {/* 🏷️ Título */}
-      <motion.h2
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1 }}
-        viewport={{ once: true }}
-        className="mb-12 text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#39234B] text-center z-10 drop-shadow-lg"
-      >
+      {/* Título — queda con serif, no milonga */}
+      <span className="relative inline-block text-4xl md:text-5xl font-extrabold text-[#3A2C4B] font-serif tracking-wide mb-10 mt-4">
         Equipo Creativo
-      </motion.h2>
+        <motion.div
+          initial={{ scaleX: 0 }}
+          whileInView={{ scaleX: 1 }}
+          transition={{ duration: 1.2, ease: "easeInOut" }}
+          viewport={{ once: false }}
+          className="absolute -bottom-2 left-0 h-[3px] w-full bg-gradient-to-r from-[#EBA9D1] via-[#CBA8D6] to-[#F6D97E] origin-left rounded-full"
+        />
+      </span>
 
-      {/* 👥 Grid */}
-      <div className="relative z-10 w-full max-w-6xl px-2">
+      {/* Grid con animación */}
+      <motion.div
+        className="relative z-10 w-full max-w-6xl px-2"
+        variants={cardContainer}
+        initial="hidden"
+        animate="show"
+      >
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 sm:gap-8">
           {elenco.map((artista, idx) => (
             <motion.div
               key={idx}
+              variants={cardItem}
               onClick={() => setSelected(artista)}
               whileHover={{ scale: 1.05 }}
-              className="flex flex-col items-center text-center p-4 sm:p-5 bg-white/70 rounded-2xl shadow-xl backdrop-blur-md border border-[#F6D97E]/70 cursor-pointer hover:shadow-2xl"
+              className="flex flex-col items-center text-center p-4 sm:p-5 bg-white/70 rounded-2xl shadow-xl backdrop-blur-md border border-[#F6D97E]/70 cursor-pointer hover:shadow-2xl transition-all"
             >
-              <div className="h-24 w-24 sm:h-28 sm:w-28 overflow-hidden rounded-full border-4 border-[#F6D97E] shadow-lg">
-                <img src={artista.foto} alt={artista.nombre} className="h-full w-full object-cover" />
+              <div className="h-24 w-24 sm:h-28 sm:w-28 overflow-hidden rounded-full border-4 border-[#F6D97E] shadow-lg relative">
+                {/* Skeleton Loader */}
+                {!loadedImages[artista.nombre] && (
+                  <div className="absolute inset-0 bg-gradient-to-r from-gray-300 via-gray-200 to-gray-300 animate-pulse rounded-full" />
+                )}
+
+                {/* Imagen */}
+                <motion.img
+                  src={artista.foto}
+                  alt={artista.nombre}
+                  onLoad={() => handleImageLoad(artista.nombre)}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: loadedImages[artista.nombre] ? 1 : 0 }}
+                  transition={{ duration: 0.5 }}
+                  className="h-full w-full object-cover rounded-full"
+                />
               </div>
+
               <h3 className="mt-3 text-sm sm:text-base md:text-lg font-semibold text-[#3A1F5D] leading-tight">
                 {artista.nombre}
               </h3>
+
               <p className="text-xs sm:text-sm text-[#6E3FA7] mt-1 leading-snug max-w-[150px] sm:max-w-[180px]">
                 {artista.rol}
               </p>
             </motion.div>
           ))}
         </div>
-      </div>
+      </motion.div>
 
+      {/* Modal */}
       <AnimatePresence>
         {selected && (
           <motion.div
@@ -171,14 +210,13 @@ export default function ElencoTeatro() {
             onClick={() => setSelected(null)}
           >
             <motion.div
-              className="relative bg-gradient-to-r from-[#EBA9D1]/95 via-[#CBA8D6]/95 to-[#F6D97E]/95 rounded-3xl p-6 sm:p-8 max-w-lg w-full text-center shadow-2xl overflow-hidden max-h-[80vh] flex flex-col"
+              className="relative bg-gradient-to-r from-[#EBA9D1]/95 via-[#CBA8D6]/95 to-[#F6D97E]/95 rounded-3xl p-6 sm:p-8 max-w-lg w-full text-center shadow-2xl overflow-hidden max-h-[80vh] flex flex-col font-milonga"
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               transition={{ duration: 0.3 }}
               onClick={(e) => e.stopPropagation()}
             >
-              {/* ❌ Cerrar */}
               <button
                 onClick={() => setSelected(null)}
                 className="absolute top-3 right-4 text-[#39234B] text-2xl font-bold hover:scale-110 transition-transform z-10"
@@ -186,7 +224,7 @@ export default function ElencoTeatro() {
                 ×
               </button>
 
-              {/* ☁️ Nubes decorativas */}
+              {/* Nubes decorativas */}
               <motion.img
                 src={nube1}
                 className="absolute top-6 left-6 w-24 opacity-30"
@@ -200,7 +238,6 @@ export default function ElencoTeatro() {
                 transition={{ duration: 22, repeat: Infinity }}
               />
 
-              {/* 📸 Contenido */}
               <div className="flex flex-col items-center z-10 relative overflow-y-auto pr-2 custom-scroll">
                 <img
                   src={selected.foto}
