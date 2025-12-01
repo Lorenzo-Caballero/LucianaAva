@@ -68,17 +68,14 @@ Gira de verano europeo 2026 (junio – septiembre).`,
 
   // 🔒 Bloqueo del scroll cuando el modal está abierto
   useEffect(() => {
-    if (showInfo) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
+    if (showInfo) document.body.style.overflow = "hidden";
+    else document.body.style.overflow = "";
   }, [showInfo]);
 
   return (
     <section
       id="sinopsis"
-      className="relative flex w-full flex-col items-center justify-center px-6 py-32 overflow-hidden scroll-mt-24"
+      className="relative flex w-full flex-col items-center justify-center px-6 py-32 overflow-hidden scroll-mt-24 font-milonga"
     >
       {/* 🎨 Fondo degradado */}
       <motion.div
@@ -112,7 +109,7 @@ Gira de verano europeo 2026 (junio – septiembre).`,
       />
 
       {/* 📜 Contenido principal */}
-      <div className="relative z-10 w-full max-w-4xl rounded-3xl bg-white/30 p-12 backdrop-blur-xl border border-white/20 shadow-2xl">
+      <div className="relative z-10 w-full max-w-4xl rounded-3xl bg-white/30 p-12 backdrop-blur-xl border border-white/20 shadow-2xl font-milonga">
         <motion.h2
           initial={{ opacity: 0, y: -40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -120,6 +117,7 @@ Gira de verano europeo 2026 (junio – septiembre).`,
           viewport={{ once: false }}
           className="mb-10 text-center"
         >
+          {/* 👇 ESTE TÍTULO MANTIENE SU FUENTE ORIGINAL */}
           <span className="relative inline-block text-4xl md:text-5xl font-extrabold text-[#3A2C4B] font-serif tracking-wide">
             Algo se fue volando
             <motion.div
@@ -140,7 +138,7 @@ Gira de verano europeo 2026 (junio – septiembre).`,
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: i * 0.3 }}
             viewport={{ once: false }}
-            className="mb-6 text-center text-lg md:text-xl text-[#3A2C4B] font-light leading-relaxed"
+            className="mb-6 text-center text-lg md:text-xl text-[#3A2C4B] font-light leading-relaxed font-milonga"
           >
             {p}
           </motion.p>
@@ -152,14 +150,14 @@ Gira de verano europeo 2026 (junio – septiembre).`,
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => setShowInfo(true)}
-            className="px-8 py-3 bg-gradient-to-r from-[#EBA9D1] via-[#CBA8D6] to-[#F6D97E] text-[#3A1F5D] font-semibold rounded-full shadow-lg backdrop-blur-sm border border-white/40 hover:shadow-xl transition-all"
+            className="px-8 py-3 bg-gradient-to-r from-[#EBA9D1] via-[#CBA8D6] to-[#F6D97E] text-[#3A1F5D] font-semibold rounded-full shadow-lg backdrop-blur-sm border border-white/40 hover:shadow-xl transition-all font-milonga"
           >
             Más información
           </motion.button>
         </div>
       </div>
 
-      {/* 💫 Modal de información */}
+      {/* 💫 Modal */}
       <AnimatePresence>
         {showInfo && (
           <InfoModal
@@ -187,7 +185,7 @@ function InfoModal({ infoSections, nube1, nube2, onClose }) {
 
   return (
     <motion.div
-      className="fixed inset-0 bg-black/60 backdrop-blur-md flex items-center justify-center z-[200] p-4 sm:p-6"
+      className="fixed inset-0 bg-black/60 backdrop-blur-md flex items-center justify-center z-[200] p-4 sm:p-6 font-milonga"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -196,14 +194,13 @@ function InfoModal({ infoSections, nube1, nube2, onClose }) {
     >
       <motion.div
         ref={scrollRef}
-        className="relative bg-gradient-to-r from-[#EBA9D1] via-[#CBA8D6] to-[#F6D97E] rounded-3xl p-10 sm:p-12 max-w-3xl w-full text-left shadow-2xl overflow-y-auto max-h-[80vh] custom-scroll mt-16" // 👈 Padding top extra (mt-16)
+        className="relative bg-gradient-to-r from-[#EBA9D1] via-[#CBA8D6] to-[#F6D97E] rounded-3xl p-10 sm:p-12 max-w-3xl w-full text-left shadow-2xl overflow-y-auto max-h-[80vh] custom-scroll mt-16 font-milonga"
         initial={{ scale: 0.85, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.9, opacity: 0 }}
         transition={{ duration: 0.3 }}
         onClick={(e) => e.stopPropagation()}
       >
-
         <button
           onClick={onClose}
           className="absolute top-3 right-5 text-[#3A2C4B] text-3xl font-bold hover:scale-110 transition-transform"
@@ -211,7 +208,7 @@ function InfoModal({ infoSections, nube1, nube2, onClose }) {
           ×
         </button>
 
-        {/* ☁️ Nubes decorativas */}
+        {/* ☁️ Nubes */}
         <motion.img
           src={nube1}
           className="absolute top-6 left-6 w-24 opacity-25"
@@ -226,7 +223,7 @@ function InfoModal({ infoSections, nube1, nube2, onClose }) {
         />
 
         {/* 📖 Contenido */}
-        <div className="relative z-10 text-[#3A1F5D] text-sm sm:text-base leading-relaxed space-y-8">
+        <div className="relative z-10 text-[#3A1F5D] text-sm sm:text-base leading-relaxed space-y-8 font-milonga">
           {infoSections.map((section, index) => (
             <motion.div
               key={index}
@@ -235,7 +232,7 @@ function InfoModal({ infoSections, nube1, nube2, onClose }) {
               transition={{ duration: 0.6, delay: index * 0.2 }}
             >
               <div className="relative inline-block mb-3">
-                <h3 className="text-lg sm:text-xl font-bold text-[#3A1F5D] font-serif">
+                <h3 className="text-lg sm:text-xl font-bold text-[#3A1F5D] font-milonga">
                   {section.title}
                 </h3>
                 <motion.div
@@ -246,7 +243,7 @@ function InfoModal({ infoSections, nube1, nube2, onClose }) {
                   className="absolute -bottom-1 left-0 h-[3px] w-full bg-gradient-to-r from-[#EBA9D1] via-[#CBA8D6] to-[#F6D97E] origin-left rounded-full"
                 />
               </div>
-              <p className="whitespace-pre-line text-[#2C1E3A]/80 font-light">
+              <p className="whitespace-pre-line text-[#2C1E3A]/80 font-light font-milonga">
                 {section.content}
               </p>
             </motion.div>

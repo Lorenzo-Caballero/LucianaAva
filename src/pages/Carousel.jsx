@@ -5,7 +5,7 @@ import nube2 from "../assets/nube2.png";
 
 import digital from "../assets/digital.jpg";
 import LN from "../assets/LN.jpg";
-import FM from "../assets/FM.jpg"; // ✅ Imagen local para el último link
+import FM from "../assets/FM.jpg"; // Imagen local para el último link
 
 // 📰 Links de prensa
 const newsLinks = [
@@ -20,43 +20,73 @@ export default function InfiniteNewsCarousel() {
   const containerRef = useRef(null);
   const animationRef = useRef(null);
   const lastTimeRef = useRef(null);
-  const SPEED = 50; // velocidad del desplazamiento
+  const SPEED = 50; // velocidad
   const [newsItems, setNewsItems] = useState([]);
 
   const handleClick = (url) => window.open(url, "_blank");
 
-  // ⚡ Obtener datos de los links usando Microlink API y reemplazando las imágenes locales
+  // ⚡ Obtener datos y reemplazar imágenes locales
   useEffect(() => {
     const fetchPreviews = async () => {
       const previews = await Promise.all(
         newsLinks.map(async (link, index) => {
           try {
-            // Usar imágenes locales para Que Digital, La Nacion y FM del Sol
-            if (index === 0) return { title: "Que Digital - “Algo se fue volando”, el nuevo espectáculo del payaso Marote", image: digital, url: link };
-            if (index === 1) return { title: "La Capital - “Algo se fue volando”, un unipersonal de teatro físico", image: LN, url: link };
-            if (index === 3) return { title: "FM del Sol - “Algo se fue volando”, un unipersonal de teatro físico", image: FM, url: link };
+            if (index === 0)
+              return {
+                title:
+                  "Que Digital - “Algo se fue volando”, el nuevo espectáculo del payaso Marote",
+                image: digital,
+                url: link,
+              };
 
-            // El tercer link sigue usando Microlink
-            const res = await fetch(`https://api.microlink.io/?url=${encodeURIComponent(link)}`);
+            if (index === 1)
+              return {
+                title:
+                  "La Capital - “Algo se fue volando”, un unipersonal de teatro físico",
+                image: LN,
+                url: link,
+              };
+
+            if (index === 3)
+              return {
+                title:
+                  "FM del Sol - “Algo se fue volando”, un unipersonal de teatro físico",
+                image: FM,
+                url: link,
+              };
+
+            // El tercer link usa Microlink
+            const res = await fetch(
+              `https://api.microlink.io/?url=${encodeURIComponent(link)}`
+            );
             const data = await res.json();
+
             return {
-              title: ` 0223 - ${data.data.title}`,
-              image: data.data.image?.url || "https://via.placeholder.com/400x200.png?text=No+Preview",
+              title: `0223 - ${data.data.title}`,
+              image:
+                data.data.image?.url ||
+                "https://via.placeholder.com/400x200.png?text=No+Preview",
               url: link,
             };
           } catch (err) {
             console.error("Error fetching preview:", err);
-            return { title: "Noticia", image: "https://via.placeholder.com/400x200.png?text=No+Preview", url: link };
+            return {
+              title: "Noticia",
+              image:
+                "https://via.placeholder.com/400x200.png?text=No+Preview",
+              url: link,
+            };
           }
         })
       );
+
       setNewsItems(previews);
     };
 
     fetchPreviews();
   }, []);
 
-  // ⚙️ Animación del desplazamiento infinito
+  // ⚙️ Animación infinita
   const animate = (time) => {
     if (!lastTimeRef.current) lastTimeRef.current = time;
     const delta = (time - lastTimeRef.current) / 1000;
@@ -80,8 +110,8 @@ export default function InfiniteNewsCarousel() {
   }, []);
 
   return (
-    <section className="relative flex w-full flex-col items-center justify-center px-6 py-20 overflow-hidden bg-gradient-to-r from-[#EBA9D1] via-[#CBA8D6] to-[#F6D97E] select-none">
-      {/* 🎨 Fondo */}
+    <section className="relative flex w-full flex-col items-center justify-center px-6 py-20 overflow-hidden bg-gradient-to-r from-[#EBA9D1] via-[#CBA8D6] to-[#F6D97E] select-none font-milonga">
+      {/* Fondo */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -89,7 +119,7 @@ export default function InfiniteNewsCarousel() {
         className="absolute inset-0 h-full w-full bg-gradient-to-r from-[#EBA9D1] via-[#CBA8D6] to-[#F6D97E] -z-10"
       />
 
-      {/* ☁️ Nubes */}
+      {/* Nubes */}
       <motion.img
         src={nube1}
         alt="Nube flotante"
@@ -107,18 +137,25 @@ export default function InfiniteNewsCarousel() {
         transition={{ duration: 50, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      {/* 📰 Título */}
+      {/* TÍTULO (mantiene la fuente SERIF original) */}
       <motion.h2
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
         viewport={{ once: true }}
-        className="mb-12 text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#39234B] text-center relative z-10 drop-shadow-lg"
+        className="mb-12 text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#39234B] text-center relative z-10 drop-shadow-lg font-serif"
       >
         Prensa
+        <motion.div
+          initial={{ scaleX: 0 }}
+          whileInView={{ scaleX: 1 }}
+          transition={{ duration: 1.2, ease: "easeInOut" }}
+          viewport={{ once: false }}
+          className="absolute -bottom-2 left-0 h-[3px] w-full bg-gradient-to-r from-[#EBA9D1] via-[#CBA8D6] to-[#F6D97E] origin-left rounded-full"
+        />
       </motion.h2>
 
-      {/* 🎠 Carrusel infinito */}
+      {/* Carrusel infinito */}
       <motion.div
         ref={containerRef}
         style={{ x }}

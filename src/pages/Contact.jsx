@@ -7,7 +7,7 @@ import nube2 from "../assets/nube2.png";
 export default function ContactoTeatro() {
   const [formData, setFormData] = useState({ nombre: "", email: "", mensaje: "" });
   const [enviado, setEnviado] = useState(false);
-  const [loading, setLoading] = useState(false); // <-- NUEVO
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -16,7 +16,7 @@ export default function ContactoTeatro() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true); // activar spinner
+    setLoading(true);
 
     try {
       const res = await fetch("https://argames.store/clientes.php?recurso=contacto", {
@@ -44,13 +44,13 @@ export default function ContactoTeatro() {
       alert("No se pudo conectar con el servidor");
     }
 
-    setLoading(false); // apagar spinner
+    setLoading(false);
   };
 
   return (
     <section
       id="contacto"
-      className="relative flex w-full flex-col items-center justify-center px-6 py-20 overflow-hidden bg-gradient-to-r from-[#EBA9D1] via-[#CBA8D6] to-[#F6D97E]"
+      className="relative flex w-full flex-col items-center justify-center px-6 py-20 overflow-hidden bg-gradient-to-r from-[#EBA9D1] via-[#CBA8D6] to-[#F6D97E] font-milonga"
     >
       {/* Fondo */}
       <motion.div
@@ -69,6 +69,7 @@ export default function ContactoTeatro() {
         animate={{ x: [-100, 100, -100] }}
         transition={{ duration: 40, repeat: Infinity, ease: "easeInOut" }}
       />
+
       <motion.img
         src={nube2}
         alt="Nube flotante"
@@ -77,6 +78,7 @@ export default function ContactoTeatro() {
         animate={{ x: [100, -100, 100] }}
         transition={{ duration: 50, repeat: Infinity, ease: "easeInOut" }}
       />
+
       <motion.img
         src={nube1}
         alt="Nube flotante"
@@ -86,23 +88,31 @@ export default function ContactoTeatro() {
         transition={{ duration: 60, repeat: Infinity, ease: "easeInOut" }}
       />
 
+      {/* CONTENEDOR */}
       <div className="relative z-10 w-full max-w-3xl rounded-3xl bg-white/70 p-8 shadow-xl backdrop-blur">
+
+        {/* TITULO (SE MANTIENE SIN MILONGA) */}
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="mb-6 text-center text-3xl font-bold text-neutral-800"
+          className="mb-6 text-center text-3xl font-bold text-neutral-800 font-serif"
         >
           Contáctanos
         </motion.h2>
 
         {enviado ? (
-          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center text-green-600">
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-center text-green-600 text-xl"
+          >
             ✅ ¡Tu mensaje fue enviado con éxito!
           </motion.p>
         ) : (
           <form onSubmit={handleSubmit} className="grid gap-4">
+
             <input
               type="text"
               name="nombre"
@@ -110,7 +120,8 @@ export default function ContactoTeatro() {
               onChange={handleChange}
               placeholder="Tu nombre"
               required
-              className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-sm focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-200"
+              className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-lg
+              focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-200 font-milonga"
             />
 
             <input
@@ -120,7 +131,8 @@ export default function ContactoTeatro() {
               onChange={handleChange}
               placeholder="Tu email"
               required
-              className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-sm focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-200"
+              className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-lg
+              focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-200 font-milonga"
             />
 
             <textarea
@@ -130,7 +142,8 @@ export default function ContactoTeatro() {
               placeholder="Tu mensaje"
               rows="5"
               required
-              className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-sm focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-200"
+              className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-lg
+              focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-200 font-milonga"
             />
 
             <motion.button
@@ -138,12 +151,11 @@ export default function ContactoTeatro() {
               whileTap={!loading ? { scale: 0.95 } : {}}
               type="submit"
               disabled={loading}
-              className={`rounded-xl px-6 py-3 font-semibold text-white shadow-md transition
+              className={`rounded-xl px-6 py-3 text-xl text-white shadow-md transition font-milonga
                 ${loading ? "bg-gray-400 cursor-not-allowed" : "bg-amber-500 hover:bg-amber-600"}`}
             >
               {loading ? (
                 <div className="flex items-center justify-center gap-2">
-                  {/* Spinner */}
                   <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                   Enviando...
                 </div>
