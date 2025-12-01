@@ -11,6 +11,9 @@ import InstagramButton from './InstagramButton';
 import SinopsisTeatro from './Sinopsis';
 import Footer from './Footer';
 import NewsCarousel from './Carousel';
+import OnlyCollage from './OnlyCollage';
+import WhatsAppButton from "./WhatsAppButton";
+import VideoResponsive from './video';
 const containerVariants = {
   hidden: {
     opacity: 0
@@ -34,13 +37,15 @@ const Home = () => {
       animate="visible"
     >
       <Navbar />
-     <Hero/>
+    <VideoResponsive/>
      <SinopsisTeatro/>
      <ElencoTeatro/>
      <NewsCarousel/>
+     <OnlyCollage/>
      <ContactoTeatro/>
      <Footer/>
      <ChatBot/>
+     <WhatsAppButton/>
      <InstagramButton/>
     </motion.main>
   );

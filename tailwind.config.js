@@ -7,6 +7,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
+        milonga: ["Milonga", "serif"],
+
         serif: ['"Playfair Display"', 'serif'],
         romantic: ['"Cormorant Garamond"', 'serif'],
       },

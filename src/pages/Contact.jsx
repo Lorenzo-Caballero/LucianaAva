@@ -7,17 +7,44 @@ import nube2 from "../assets/nube2.png";
 export default function ContactoTeatro() {
   const [formData, setFormData] = useState({ nombre: "", email: "", mensaje: "" });
   const [enviado, setEnviado] = useState(false);
+  const [loading, setLoading] = useState(false); // <-- NUEVO
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Aquí iría la lógica de envío (API, email service, etc.)
-    setEnviado(true);
-    setTimeout(() => setEnviado(false), 4000);
+    setLoading(true); // activar spinner
+
+    try {
+      const res = await fetch("https://argames.store/clientes.php?recurso=contacto", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(formData),
+        mode: "cors",
+        credentials: "include",
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        setEnviado(true);
+        setFormData({ nombre: "", email: "", mensaje: "" });
+        setTimeout(() => setEnviado(false), 4000);
+      } else {
+        alert("Hubo un error: " + (data.error || "Desconocido"));
+      }
+    } catch (error) {
+      console.log(error);
+      alert("No se pudo conectar con el servidor");
+    }
+
+    setLoading(false); // apagar spinner
   };
 
   return (
@@ -25,7 +52,7 @@ export default function ContactoTeatro() {
       id="contacto"
       className="relative flex w-full flex-col items-center justify-center px-6 py-20 overflow-hidden bg-gradient-to-r from-[#EBA9D1] via-[#CBA8D6] to-[#F6D97E]"
     >
-      {/* Fondo artístico */}
+      {/* Fondo */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -33,7 +60,7 @@ export default function ContactoTeatro() {
         className="absolute inset-0 bg-gradient-to-r from-[#EBA9D1] via-[#CBA8D6] to-[#F6D97E] -z-10"
       />
 
-      {/* Nubes animadas */}
+      {/* Nubes */}
       <motion.img
         src={nube1}
         alt="Nube flotante"
@@ -71,11 +98,7 @@ export default function ContactoTeatro() {
         </motion.h2>
 
         {enviado ? (
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="text-center text-green-600"
-          >
+          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center text-green-600">
             ✅ ¡Tu mensaje fue enviado con éxito!
           </motion.p>
         ) : (
@@ -89,6 +112,7 @@ export default function ContactoTeatro() {
               required
               className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-sm focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-200"
             />
+
             <input
               type="email"
               name="email"
@@ -98,6 +122,7 @@ export default function ContactoTeatro() {
               required
               className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-sm focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-200"
             />
+
             <textarea
               name="mensaje"
               value={formData.mensaje}
@@ -107,13 +132,24 @@ export default function ContactoTeatro() {
               required
               className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-sm focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-200"
             />
+
             <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={!loading ? { scale: 1.05 } : {}}
+              whileTap={!loading ? { scale: 0.95 } : {}}
               type="submit"
-              className="rounded-xl bg-amber-500 px-6 py-3 font-semibold text-white shadow-md transition hover:bg-amber-600"
+              disabled={loading}
+              className={`rounded-xl px-6 py-3 font-semibold text-white shadow-md transition
+                ${loading ? "bg-gray-400 cursor-not-allowed" : "bg-amber-500 hover:bg-amber-600"}`}
             >
-              Enviar mensaje
+              {loading ? (
+                <div className="flex items-center justify-center gap-2">
+                  {/* Spinner */}
+                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                  Enviando...
+                </div>
+              ) : (
+                "Enviar mensaje"
+              )}
             </motion.button>
           </form>
         )}
