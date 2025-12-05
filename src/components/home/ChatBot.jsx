@@ -12,16 +12,12 @@ const ChatBot = () => {
   const [mostrarTooltip, setMostrarTooltip] = useState(false);
   const mensajesRef = useRef(null);
 
-  // Auto-scroll
   useEffect(() => {
     if (mensajesRef.current) {
       mensajesRef.current.scrollTop = mensajesRef.current.scrollHeight;
     }
   }, [mensajes]);
 
-  // ==============================
-  // 🔹 Enviar mensaje
-  // ==============================
   const handleEnviarMensaje = async () => {
     if (!nuevoMensaje.trim() || enviandoMensaje) return;
 
@@ -30,7 +26,6 @@ const ChatBot = () => {
     setMensajes((prev) => [...prev, { texto, origen: "usuario" }]);
     setEnviandoMensaje(true);
 
-    // Mensaje temporal de carga
     setMensajes((prev) => [
       ...prev,
       { texto: "Escribiendo...", origen: "asistente", temporal: true },
@@ -39,7 +34,6 @@ const ChatBot = () => {
     try {
       const respuesta = await obtenerRespuestaDesdeServidor(texto);
 
-      // Reemplazar mensaje temporal
       setMensajes((prev) =>
         prev.map((m) =>
           m.temporal ? { texto: respuesta, origen: "asistente" } : m
@@ -62,9 +56,6 @@ const ChatBot = () => {
     }
   };
 
-  // ==============================
-  // 🔹 Llamada al backend PHP
-  // ==============================
   const obtenerRespuestaDesdeServidor = async (mensajeUsuario) => {
     const endpoint = "https://gestoradmin.store/index.php?recurso=apiai";
 
@@ -72,20 +63,17 @@ const ChatBot = () => {
       const resp = await axios.post(
         endpoint,
         { mensaje: mensajeUsuario },
-        { timeout: 20000 } // 20 segundos de espera
+        { timeout: 20000 }
       );
 
-      // Si el backend devolvió un error en JSON
       if (resp.data?.error) {
         throw new Error(resp.data.error);
       }
 
-      // Si hay respuesta normal
       if (resp.data?.respuesta) {
         return resp.data.respuesta;
       }
 
-      // Si la estructura es inesperada
       throw new Error("Respuesta inválida o vacía del servidor");
     } catch (err) {
       if (err.response) {
@@ -101,9 +89,6 @@ const ChatBot = () => {
     }
   };
 
-  // ==============================
-  // 🔹 Eventos UI
-  // ==============================
   const handleKeyDown = (e) => {
     if (e.key === "Enter") handleEnviarMensaje();
   };
@@ -113,11 +98,8 @@ const ChatBot = () => {
   const handleMouseEnter = () => setMostrarTooltip(true);
   const handleMouseLeave = () => setMostrarTooltip(false);
 
-  // ==============================
-  // 🔹 Render UI
-  // ==============================
   return (
-    <div className="fixed bottom-6 right-6 z-50 font-sans">
+    <div className="fixed bottom-6 right-6 z-50 font-milonga">
       {/* BOTÓN FLOTANTE */}
       <button
         onClick={handleChatToggle}
@@ -136,7 +118,7 @@ const ChatBot = () => {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.2 }}
-          className="absolute bottom-16 right-4 px-3 py-1 bg-amber-200 text-gray-800 text-sm rounded-lg shadow"
+          className="absolute bottom-16 right-4 px-3 py-1 bg-amber-200 text-gray-800 text-sm rounded-lg shadow font-milonga"
         >
           Soy tu asistente de Producción
         </motion.div>
@@ -148,11 +130,11 @@ const ChatBot = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3 }}
-          className="bg-amber-50 p-4 rounded-xl shadow-2xl w-80 max-w-[90vw] flex flex-col max-h-[70vh] sm:max-h-[60vh] overflow-hidden border border-amber-200"
+          className="bg-amber-50 p-4 rounded-xl shadow-2xl w-80 max-w-[90vw] flex flex-col max-h-[70vh] sm:max-h-[60vh] overflow-hidden border border-amber-200 font-milonga"
         >
           {/* HEADER */}
           <div className="flex justify-between items-center mb-2 border-b border-amber-200 pb-2">
-            <span className="font-semibold text-gray-700 text-lg">
+            <span className="font-semibold text-gray-700 text-lg font-milonga">
               Asistente de Producción
             </span>
             <button
@@ -166,7 +148,7 @@ const ChatBot = () => {
           {/* MENSAJES */}
           <div
             ref={mensajesRef}
-            className="flex-1 overflow-y-auto mb-2 space-y-2 flex flex-col pr-1"
+            className="flex-1 overflow-y-auto mb-2 space-y-2 flex flex-col pr-1 font-milonga"
             style={{ minHeight: "200px" }}
           >
             {mensajes.map((mensaje, index) => (
@@ -175,7 +157,7 @@ const ChatBot = () => {
                 initial={{ opacity: 0, y: 5 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.2 }}
-                className={`px-4 py-2 rounded-2xl max-w-[80%] break-words ${
+                className={`px-4 py-2 rounded-2xl max-w-[80%] break-words font-milonga ${
                   mensaje.origen === "usuario"
                     ? "bg-amber-300 text-gray-900 self-end"
                     : "bg-white text-gray-800 self-start border border-amber-100"
@@ -187,20 +169,20 @@ const ChatBot = () => {
           </div>
 
           {/* INPUT */}
-          <div className="flex items-center mt-2 space-x-2 w-full">
+          <div className="flex items-center mt-2 space-x-2 w-full font-milonga">
             <input
               type="text"
               value={nuevoMensaje}
               onChange={(e) => setNuevoMensaje(e.target.value)}
               onKeyDown={handleKeyDown}
               placeholder="Escribí tu mensaje..."
-              className="flex-1 min-w-0 border border-amber-200 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-amber-300 bg-amber-50 text-gray-800"
+              className="flex-1 min-w-0 border border-amber-200 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-amber-300 bg-amber-50 text-gray-800 font-milonga"
               disabled={enviandoMensaje}
             />
             <button
               onClick={handleEnviarMensaje}
               disabled={enviandoMensaje}
-              className="flex-shrink-0 bg-amber-300 hover:bg-amber-400 text-gray-900 rounded-full px-4 py-2 font-semibold shadow transition-all duration-200 disabled:opacity-60"
+              className="flex-shrink-0 bg-amber-300 hover:bg-amber-400 text-gray-900 rounded-full px-4 py-2 font-semibold shadow transition-all duration-200 disabled:opacity-60 font-milonga"
             >
               {enviandoMensaje ? "..." : "Enviar"}
             </button>
