@@ -1,11 +1,20 @@
 // src/components/ContactoTeatro.jsx
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
+
 import nube1 from "../assets/nube1.png";
 import nube2 from "../assets/nube2.png";
 
 export default function ContactoTeatro() {
-  const [formData, setFormData] = useState({ nombre: "", email: "", mensaje: "" });
+  const { t } = useTranslation();
+
+  const [formData, setFormData] = useState({
+    nombre: "",
+    email: "",
+    mensaje: ""
+  });
+
   const [enviado, setEnviado] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -19,29 +28,36 @@ export default function ContactoTeatro() {
     setLoading(true);
 
     try {
-      const res = await fetch("https://argames.store/clientes.php?recurso=contacto", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify(formData),
-        mode: "cors",
-        credentials: "include",
-      });
+      const res = await fetch(
+        "https://argames.store/clientes.php?recurso=contacto",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json"
+          },
+          body: JSON.stringify(formData),
+          mode: "cors",
+          credentials: "include"
+        }
+      );
 
       const data = await res.json();
 
       if (data.success) {
         setEnviado(true);
         setFormData({ nombre: "", email: "", mensaje: "" });
+
         setTimeout(() => setEnviado(false), 4000);
       } else {
-        alert("Hubo un error: " + (data.error || "Desconocido"));
+        alert(
+          t("contact.errors.unknown") +
+            ": " +
+            (data.error || t("contact.errors.unknown"))
+        );
       }
     } catch (error) {
-      console.log(error);
-      alert("No se pudo conectar con el servidor");
+      alert(t("contact.errors.server"));
     }
 
     setLoading(false);
@@ -50,7 +66,7 @@ export default function ContactoTeatro() {
   return (
     <section
       id="contacto"
-      className="relative flex w-full flex-col items-center justify-center px-6 py-20 overflow-hidden bg-gradient-to-r from-[#EBA9D1] via-[#CBA8D6] to-[#F6D97E] font-milonga"
+      className="relative flex w-full flex-col items-center justify-center px-6 pt-32 pb-16   overflow-hidden bg-gradient-to-r from-[#EBA9D1] via-[#CBA8D6] to-[#F6D97E] font-milonga"
     >
       {/* Fondo */}
       <motion.div
@@ -88,10 +104,9 @@ export default function ContactoTeatro() {
         transition={{ duration: 60, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      {/* CONTENEDOR */}
+      {/* Contenedor */}
       <div className="relative z-10 w-full max-w-3xl rounded-3xl bg-white/70 p-8 shadow-xl backdrop-blur">
-
-        {/* TITULO (SE MANTIENE SIN MILONGA) */}
+        {/* Título */}
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -99,7 +114,7 @@ export default function ContactoTeatro() {
           viewport={{ once: true }}
           className="mb-6 text-center text-3xl font-bold text-neutral-800 font-serif"
         >
-          Contáctanos
+          {t("contact.title")}
         </motion.h2>
 
         {enviado ? (
@@ -108,20 +123,18 @@ export default function ContactoTeatro() {
             animate={{ opacity: 1 }}
             className="text-center text-green-600 text-xl"
           >
-            ✅ ¡Tu mensaje fue enviado con éxito!
+            {t("contact.success")}
           </motion.p>
         ) : (
           <form onSubmit={handleSubmit} className="grid gap-4">
-
             <input
               type="text"
               name="nombre"
               value={formData.nombre}
               onChange={handleChange}
-              placeholder="Tu nombre"
+              placeholder={t("contact.fields.name")}
               required
-              className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-lg
-              focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-200 font-milonga"
+              className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-lg focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-200 font-milonga"
             />
 
             <input
@@ -129,21 +142,19 @@ export default function ContactoTeatro() {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              placeholder="Tu email"
+              placeholder={t("contact.fields.email")}
               required
-              className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-lg
-              focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-200 font-milonga"
+              className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-lg focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-200 font-milonga"
             />
 
             <textarea
               name="mensaje"
               value={formData.mensaje}
               onChange={handleChange}
-              placeholder="Tu mensaje"
+              placeholder={t("contact.fields.message")}
               rows="5"
               required
-              className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-lg
-              focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-200 font-milonga"
+              className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-lg focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-200 font-milonga"
             />
 
             <motion.button
@@ -151,16 +162,19 @@ export default function ContactoTeatro() {
               whileTap={!loading ? { scale: 0.95 } : {}}
               type="submit"
               disabled={loading}
-              className={`rounded-xl px-6 py-3 text-xl text-white shadow-md transition font-milonga
-                ${loading ? "bg-gray-400 cursor-not-allowed" : "bg-amber-500 hover:bg-amber-600"}`}
+              className={`rounded-xl px-6 py-3 text-xl text-white shadow-md transition font-milonga ${
+                loading
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "bg-amber-500 hover:bg-amber-600"
+              }`}
             >
               {loading ? (
                 <div className="flex items-center justify-center gap-2">
                   <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                  Enviando...
+                  {t("contact.actions.sending")}
                 </div>
               ) : (
-                "Enviar mensaje"
+                t("contact.actions.send")
               )}
             </motion.button>
           </form>

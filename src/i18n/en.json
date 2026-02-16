@@ -1,0 +1,176 @@
+{
+  "nav": {
+    "home": "Home",
+    "work": "The Play",
+    "team": "Creative Team",
+    "photos": "Photos",
+    "contact": "Contact"
+  },
+
+  "sinopsis": {
+    "title": "Something Flew Away",
+
+    "sinopsis": [
+      "A solo performance of absurd humor, centered on the character Marote, who tenderly and comically navigates a very particular process of grief: the loss of hair, that precious object he once cared for so much.",
+      "Through a succession of visual, physical, and symbolic scenes, Marote goes through the different stages of grief —denial, anger, sadness, and acceptance— carrying a bag full of memories and objects that he plays with, transforms, and re-signifies.",
+      "The show proposes a wordless stage language, based on the body, objects, rhythm, and image, where the absurd and the poetic intertwine to speak —without saying— about what is no longer here."
+    ],
+
+    "moreInfo": "More information",
+
+    "sections": [
+      {
+        "title": "Format",
+        "content": "Solo performance\nNo spoken text\nPhysical theater / absurd humor / visual poetry\nApproximate duration: 35 minutes\nAudience: all ages\nIdeal and adaptable to unconventional spaces, street, festivals, tents, or stages, with or without technical infrastructure"
+      },
+      {
+        "title": "Creative team",
+        "content": "Performer: Norman Pereyra Wagner (Marote)\nOriginal idea and dramaturgy; general production and artistic supervision: Carolina Dumrauf\nDirection: Mariana Mora\nChoreographic creation and direction: Lova Paula Lostra\nOriginal music: Randall Lewer\nCostume design: Candela Chirino\nCostume construction: Pato García\nScenic object design and construction: Fiorella Brignani\nMakeup design and execution: La Bicha Artistic Solutions\nGraphic design and illustration: Lucía Cases\nProduction assistant: Julen Tavo Andiarena Lattes\nAssociate producer and touring production assistant: Gabriela Dumrauf."
+      },
+
+        
+      {
+        "title": "Technical Sheet",
+        "content": "Minimum space: 4 x 4 m, hard surface\nAudio: stereo direct box (2 channels for music)\nLighting: 4 front lights and 4 LED backlights\nSetup: 1 hour\nTeardown: 30 minutes\nAdaptable version: street, tent, or unconventional spaces"
+      } 
+,      
+      {
+        "title": "Scenic style and references",
+        "content": "Physical, absurd, silent humor\nObject play, symbolic use of everyday elements\nAesthetic and references: contemporary clown and circus-theater\nVisual poetry, gesturality, and rhythm\nColors and atmosphere designed to generate emotion and tenderness"
+      },
+      {
+        "title": "Themes explored",
+        "content": "The passage of time\nAttachment to self-image\nMemory and objects as portals to the past\nIdentity and its transformation \n Humor, tenderness, and play in the face of loss\nVulnerability."
+      },
+      {
+        "title": "Project objective",
+        "content": "To create a brief scenic work with strong visual, musical, and emotional impact, connecting with a broad audience through humor, tenderness, and nostalgia.\nThe proposal is based on wordless dramaturgy, centered on the body, music, and objects, with a poetic, absurd, and delicate aesthetic.\nThe project will be developed throughout 2025 with the intention of performing and participating in festivals during:\nSummer season 2026 in Mar del Plata (Argentina)\nEuropean summer tour 2026 (June – September)."
+      }
+    ]
+    
+  },
+  
+  "team": {
+    "title": "Creative Team",
+
+    "roles": {
+      "norman": "Performer (Marote)",
+      "carolina": "Author; general production and artistic supervision",
+      "mariana": "Director",
+      "lova": "Choreographic creation and direction",
+      "randall": "Original music",
+      "candela": "Costume design",
+      "fiorella": "Scenic object design and construction",
+      "lucia": "Graphic design & Illustration",
+      "labicha": "Makeup design & execution",
+      "gabriela": "Associate producer & touring production assistant",
+      "julen": "Production assistant"
+    },
+
+    "bio": {
+      "Norman Pereyra Wagner": {
+        "text": "He began his artistic journey in 2005, training at La Luna Circo school, where he explored juggling, duo acrobatics, aerial acrobatics, and clowning. Since 2011, he has performed his solo show Un mundo en la maleta in various spaces in Mar del Plata. Between 2013 and 2019, he joined the project Circo de la Audacia, and in 2023 he was invited to work at Cirque Du Liban (Dubai, UAE).",
+        "mail": "marotepayaso@gmail.com",
+        "insta": "@payaso_marote"
+      },
+      "Carolina Dumrauf": {
+        "text": "Producer and arts manager. Since late 2003, she began her journey into art in a theater workshop, expanding into film, music, dance, circus, and storytelling. She studied film and completed various training programs in direction, production, and comprehensive arts project management. Over the years, she has worked in national and international festivals, theater productions, circus projects, and as a band manager. She has developed numerous projects, combining creative sensitivity with organizational and production skills.",
+        "mail": "carolina.t.dumrauf@gmail.com"
+      },
+      "Mariana Mora": {
+        "text": "Actress, clown, and theater teacher. For over 25 years, she has worked in the independent scene as an actress and director in public and private projects. She trained at the Escuela de Experimentación Teatral La Brecha and the Angelina Pagano Municipal School of Dramatic Arts. She is also trained in Social Psychology and Art Therapy, integrating art as a tool for health and community connection. She coordinates workshops and participates in theatrical, circus, and performative productions in Mar del Plata and other cities.",
+        "insta": "@marianamoramor"
+      },
+      "Paula Lostra (Lova)": {
+        "text": "Choreographer, performer, and somatic researcher, specialized in improvisation and contemporary dance. She is a National Dance Teacher and holds a degree in Choreographic Composition from the National University of Arts. She is also trained in Body-Mind Centering® (BMC®), co-founder of the Festival of Cuerpx, Art and Gender, and director of the transfeminist company SOMA. Her work combines somatic presence, body-gender exploration, and improvisation with strong political and poetic commitment.",
+        "mail": "danzatransfeminista@gmail.com",
+        "insta": "@paulalostra"
+      },
+      "Randall Lewer": {
+        "text": "Argentine musician, guitarist, and composer, with experience in recording and music production. He trained at Fattoria de Sonido (Mar del Plata) as a sound technician and music producer. He studied music teaching at the Luis Gianneo Conservatory and is also self-taught. He worked with Argentine bands such as Toro, Los Chefferson, and Tina La Vedette, among others. Additionally, he developed theater and performance projects, reflected in his local work MercurioHg. He currently continues his training in Sweden and works as a technician at Victoria Teatern (Malmö).",
+        "mail": "randallewer@gmail.com",
+        "insta": "@randalllewer"
+      },
+      "Candela Chirino": {
+        "text": "Teacher at various universities and art schools in Mar del Plata. Industrial designer, art director, and costume designer for audiovisual media and theater. She has worked in Argentine productions associated with the USA, Brazil, Honduras, Spain, Saudi Arabia, France, and Sweden. Several of her works have won awards and been shown at renowned international film festivals. She collaborates with independent theater companies and experimental music projects in Mar del Plata.",
+        "mail": "dicandelachirino@gmail.com",
+        "insta": "@chirinocandela"
+      },
+      "Pato García": {
+        "text": "Designer and producer of theatrical, cinematic, circus, and dance costumes.",
+        "insta": "@patogarcia.tallertextil"
+      },
+      "Fiorella Brignani": {
+        "text": "She has always had a profound artistic sensitivity and a natural connection with art as a form of expression. Her work spans music, dance, visual arts, and ceramics. Creating and materializing objects is one of her most genuine facets, combining intuition, play, and aesthetic sensitivity. Her creative universe is nourished by movement, materials, and the emotions that flow through them."
+      },
+      "La Bicha Soluciones Artísticas": {
+        "text": "Creative and artisan group providing solutions through art and a touch of magic. That idea that seems like an illusion, they make it real.",
+        "insta": "@labicha.mdp"
+      },
+      "Lucía Cases": {
+        "text": "Graphic designer, illustrator, and tattoo artist. Her work moves between digital and manual media, exploring different visual languages to shape ideas, emotions, and concepts. She is interested in visual communication as an expressive and approachable tool, where each project maintains coherence, identity, and a personal imprint. Her process starts intuitively and relies on technique, seeking a balance between the aesthetic and the emotional. She understands visual creation as a way to connect with those who see, use, and feel.",
+        "mail": "dgluciacases@gmail.com",
+        "insta": "@luciacases"
+      },
+      "Julen Tavo Andiarena Lattes": {
+        "text": "He started acting as a child and later discovered his passion for behind-the-scenes work. In 2023, he trained in operating sound and lighting systems for live shows. Since 2014, he has worked as a production assistant in theater, art exhibitions, and audiovisual productions in Mar del Plata.",
+        "insta": "@julentavo"
+      },
+      "Gabriela Dumrauf": {
+        "text": "Her first encounter with art was through playing bass during adolescence. Later, she studied photography at the Martín A. Malharro School of Visual Arts. Over time, she expanded her journey into performing arts, participating in theater and circus projects as a production assistant. Her perspective combines visual sensitivity with teamwork and creative process management.",
+        "mail": "gabriela.dumrauf@gmail.com"
+      }
+    },
+    
+
+    "labels": {
+      "email": "Email",
+      "instagram": "Instagram",
+      "moreInfo": "More information"
+    }
+  },
+    "sectionTitle": "Press",
+
+  "news": [
+    {
+      "title": "Que Digital - “Something Flew Away”, the new show by clown Marote",
+      "image": "digital",
+      "url": "https://www.google.com/amp/s/quedigital.com.ar/cultura/algo-se-fue-volando-el-nuevo-espectaculo-del-payaso-marote/amp/"
+    },
+    {
+      "title": "La Capital - “Something Flew Away”, a physical theater solo performance",
+      "image": "LN",
+      "url": "https://www.google.com/amp/s/www.lacapitalmdp.com/algo-se-fue-volando-un-unipersonal-de-teatro-fisico/amp/"
+    },
+    {
+      "titlePrefix": "0223 - ",
+      "image": "microlink",
+      "url": "https://www.0223.com.ar/nota/2025-10-12-12-40-0-algo-se-fue-volando-marote-presenta-su-nuevo-espectaculo-en-mar-del-plata"
+    },
+    {
+      "title": "FM del Sol - “Something Flew Away”, a physical theater solo performance",
+      "image": "FM",
+      "url": "https://fmdelsol.com.ar/?p=11733"
+    }
+  ], "contact": {
+    "title": "Contact Us",
+    "success": "✅ Your message has been sent successfully!",
+    "fields": {
+      "name": "Your name",
+      "email": "Your email",
+      "message": "Your message"
+    },
+    "actions": {
+      "sending": "Sending...",
+      "send": "Send message"
+    },
+    "errors": {
+      "server": "Could not connect to server",
+      "unknown": "An unknown error occurred"
+    }
+  }
+  ,  "footer": {
+    "title":"Something Flew Away. ",
+    "quote": "A journey where the absurd and the poetic intertwine."
+  }
+}

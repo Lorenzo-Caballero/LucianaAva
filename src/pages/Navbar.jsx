@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { HiX } from "react-icons/hi";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 import logo from "../assets/algosefuevolando.png";
 import building from "../assets/casita.png";
@@ -11,13 +13,33 @@ const MainNavigation = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const toggleMenu = () => setMenuOpen(!menuOpen);
 
-  const scrollToSection = (id) => {
-    const section = document.getElementById(id);
-    if (section) {
-      section.scrollIntoView({ behavior: "smooth" });
-      setMenuOpen(false);
-    }
+  const { t, i18n } = useTranslation();
+
+  const toggleLanguage = () => {
+    const newLang = i18n.language === "es" ? "en" : "es";
+    i18n.changeLanguage(newLang);
   };
+
+  // 🇦🇷 SVG bandera Argentina
+  const FlagAR = (
+    <svg width="28" height="20" viewBox="0 0 28 20" className="rounded shadow">
+      <rect width="28" height="20" fill="#74ACDF" />
+      <rect y="6" width="28" height="8" fill="#FFFFFF" />
+    </svg>
+  );
+
+  // 🇬🇧 SVG bandera UK minimalista
+  const FlagUK = (
+    <svg width="28" height="20" viewBox="0 0 28 20" className="rounded shadow">
+      <rect width="28" height="20" fill="#00247D" />
+      <path d="M0 0 L28 20 M28 0 L0 20" stroke="#FFFFFF" strokeWidth="4" />
+      <path d="M0 0 L28 20 M28 0 L0 20" stroke="#CF142B" strokeWidth="2" />
+      <rect x="12" width="4" height="20" fill="#FFFFFF" />
+      <rect width="28" y="8" height="4" fill="#FFFFFF" />
+      <rect x="13" width="2" height="20" fill="#CF142B" />
+      <rect width="28" y="9" height="2" fill="#CF142B" />
+    </svg>
+  );
 
   return (
     <nav
@@ -53,16 +75,18 @@ const MainNavigation = () => {
         />
       </div>
 
-      {/* 🌈 CONTENIDO NAVBAR */}
+      {/* 🌈 CONTENIDO nav */}
       <div className="relative max-w-7xl mx-auto flex items-center justify-between px-4 py-3 md:px-8 z-[10010] font-milonga">
+
         {/* LOGO */}
         <div className="flex items-center space-x-2">
-          <img
-            src={logo}
-            alt="Logo"
-            onClick={() => scrollToSection("inicio")}
-            className="w-14 h-14 hover:scale-105 md:w-16 md:h-16 rounded-full shadow-lg border border-white/70 object-cover cursor-pointer"
-          />
+          <Link to="/inicio">
+            <img
+              src={logo}
+              alt="Logo"
+              className="w-14 h-14 hover:scale-105 md:w-16 md:h-16 rounded-full shadow-lg border border-white/70 object-cover cursor-pointer"
+            />
+          </Link>
         </div>
 
         {/* BOTÓN CASITA (MOBILE) */}
@@ -83,50 +107,49 @@ const MainNavigation = () => {
 
         {/* 🌐 MENÚ PRINCIPAL (DESKTOP) */}
         <div className="hidden md:flex md:space-x-8 items-center font-milonga">
-          <button
-            onClick={() => scrollToSection("sinopsis")}
-            className="text-[#5A4A42] bg-[#F8EAD8] px-4 py-2 rounded-lg font-medium 
-                       transition-all duration-300 hover:bg-[#F4B6A6] hover:text-white hover:shadow-lg hover:scale-105"
+          <Link
+            to="/sinopsis"
+            className="text-[#5A4A42] bg-[#F8EAD8] px-4 py-2 rounded-lg font-medium transition-all duration-300 hover:bg-[#F4B6A6] hover:text-white hover:shadow-lg hover:scale-105"
           >
-            La Obra
-          </button>
+            {t("nav.work")}
+          </Link>
 
-          <button
-            onClick={() => scrollToSection("equipo")}
-            className="text-[#5A4A42] bg-[#F8EAD8] px-4 py-2 rounded-lg font-medium 
-                       transition-all duration-300 hover:bg-[#C88F96] hover:text-white hover:shadow-lg hover:scale-105"
+          <Link
+            to="/equipo"
+            className="text-[#5A4A42] bg-[#F8EAD8] px-4 py-2 rounded-lg font-medium transition-all duration-300 hover:bg-[#C88F96] hover:text:white hover:shadow-lg hover:scale-105"
           >
-            Equipo Creativo
-          </button>
+            {t("nav.team")}
+          </Link>
 
-          <button
-            onClick={() => scrollToSection("fotos")}
-            className="text-[#5A4A42] bg-[#F8EAD8] px-4 py-2 rounded-lg font-medium 
-                       transition-all duration-300 hover:bg-[#E8A2B0] hover:text-white hover:shadow-lg hover:scale-105"
+          <Link
+            to="/fotos"
+            className="text-[#5A4A42] bg-[#F8EAD8] px-4 py-2 rounded-lg font-medium transition-all duration-300 hover:bg-[#E8A2B0] hover:text:white hover:shadow-lg hover:scale-105"
           >
-            Fotos
-          </button>
+            {t("nav.photos")}
+          </Link>
 
-          <button
-            onClick={() => scrollToSection("contacto")}
-            className="text-[#5A4A42] bg-[#F8EAD8] px-4 py-2 rounded-lg font-medium 
-                       transition-all duration-300 hover:bg-[#C88F96] hover:text-white hover:shadow-lg hover:scale-105"
+          <Link
+            to="/contacto"
+            className="text-[#5A4A42] bg-[#F8EAD8] px-4 py-2 rounded-lg font-medium transition-all duration-300 hover:bg-[#C88F96] hover:text:white hover:shadow-lg hover:scale-105"
           >
-            Contacto
-          </button>
+            {t("nav.contact")}
+          </Link>
 
-          {/* 🏠 CASITA */}
-          <div className="relative group">
-            <img
-              src={building}
-              alt="Inicio"
-              onClick={() => scrollToSection("inicio")}
-              className="w-14 h-14 md:w-16 md:h-16 hover:scale-110 transition-all duration-300 object-contain cursor-pointer"
-            />
-            <span className="absolute left-[105%] top-1/2 -translate-y-1/2 text-sm bg-[#5A4A42] text-white px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap shadow-lg font-milonga">
-              Inicio
-            </span>
-          </div>
+          {/* 🌍 BOTÓN CAMBIO DE IDIOMA */}
+          <button
+            onClick={toggleLanguage}
+            className="
+              flex items-center gap-2 
+              bg-[#FFF4E6] text-[#5A4A42] 
+              px-3 py-2 rounded-xl 
+              shadow-sm border border-white/60
+              transition-all duration-300 
+              hover:bg-[#EBC8B2] hover:text-white 
+              hover:shadow-lg hover:scale-105
+            "
+          >
+            {i18n.language === "es" ? FlagUK : FlagAR}
+          </button>
         </div>
       </div>
 
@@ -143,44 +166,57 @@ const MainNavigation = () => {
                        shadow-lg rounded-b-3xl py-4 z-[10060] font-milonga"
           >
             <div className="flex flex-col items-center space-y-4 px-6">
-              <button
-                onClick={() => scrollToSection("inicio")}
-                className="w-full text-center text-[#5A4A42] bg-[#F8EAD8] py-2 rounded-lg font-medium 
-                           transition-all duration-300 hover:bg-[#E6C4B3] hover:text-white hover:shadow-lg"
-              >
-                Inicio
-              </button>
 
-              <button
-                onClick={() => scrollToSection("sinopsis")}
-                className="w-full text-center text-[#5A4A42] bg-[#F8EAD8] py-2 rounded-lg font-medium 
-                           transition-all duration-300 hover:bg-[#F4B6A6] hover:text-white hover:shadow-lg"
+              <Link
+                to="/inicio"
+                onClick={() => setMenuOpen(false)}
+                className="w-full text-center text-[#5A4A42] bg-[#F8EAD8] py-2 rounded-lg font-medium transition-all duration-300 hover:bg-[#E6C4B3] hover:text-white hover:shadow-lg"
               >
-                La Obra
-              </button>
+                {t("nav.home")}
+              </Link>
 
-              <button
-                onClick={() => scrollToSection("equipo")}
-                className="w-full text-center text-[#5A4A42] bg-[#F8EAD8] py-2 rounded-lg font-medium 
-                           transition-all duration-300 hover:bg-[#C88F96] hover:text-white hover:shadow-lg"
+              <Link
+                to="/sinopsis"
+                onClick={() => setMenuOpen(false)}
+                className="w-full text-center text-[#5A4A42] bg-[#F8EAD8] py-2 rounded-lg font-medium transition-all duration-300 hover:bg-[#F4B6A6] hover:text-white hover:shadow-lg"
               >
-                Equipo Creativo
-              </button>
+                {t("nav.work")}
+              </Link>
 
-              <button
-                onClick={() => scrollToSection("fotos")}
-                className="w-full text-center text-[#5A4A42] bg-[#F8EAD8] py-2 rounded-lg font-medium 
-                           transition-all duration-300 hover:bg-[#E8A2B0] hover:text-white hover:shadow-lg"
+              <Link
+                to="/equipo"
+                onClick={() => setMenuOpen(false)}
+                className="w-full text-center text-[#5A4A42] bg-[#F8EAD8] py-2 rounded-lg font-medium transition-all duration-300 hover:bg-[#C88F96] hover:text-white hover:shadow-lg"
               >
-                Fotos
-              </button>
+                {t("nav.team")}
+              </Link>
 
-              <button
-                onClick={() => scrollToSection("contacto")}
-                className="w-full text-center text-[#5A4A42] bg-[#F8EAD8] py-2 rounded-lg font-medium 
-                           transition-all duration-300 hover:bg-[#C88F96] hover:text-white hover:shadow-lg"
+              <Link
+                to="/fotos"
+                onClick={() => setMenuOpen(false)}
+                className="w-full text-center text-[#5A4A42] bg-[#F8EAD8] py-2 rounded-lg font-medium transition-all duration-300 hover:bg-[#E8A2B0] hover:text-white hover:shadow-lg"
               >
-                Contacto
+                {t("nav.photos")}
+              </Link>
+
+              <Link
+                to="/contacto"
+                onClick={() => setMenuOpen(false)}
+                className="w-full text-center text-[#5A4A42] bg-[#F8EAD8] py-2 rounded-lg font-medium transition-all duration-300 hover:bg-[#C88F96] hover:text-white hover:shadow-lg"
+              >
+                {t("nav.contact")}
+              </Link>
+
+              {/* 🌍 CAMBIAR IDIOMA */}
+              <button
+                onClick={() => {
+                  toggleLanguage();
+                  setMenuOpen(false);
+                }}
+                className="flex items-center justify-center gap-2 w-full bg-[#FFF4E6] text-[#5A4A42] py-3 rounded-lg font-medium transition-all duration-300 hover:bg-[#EBC8B2] hover:text-white hover:shadow-lg"
+              >
+                {i18n.language === "es" ? FlagUK : FlagAR}
+                <span className="ml-2">{i18n.language === "es" ? "EN" : "ES"}</span>
               </button>
             </div>
           </motion.div>

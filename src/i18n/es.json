@@ -1,0 +1,180 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "work": "La Obra",
+    "team": "Equipo Creativo",
+    "photos": "Fotos",
+    "contact": "Contacto"
+  },
+
+  "sinopsis": {
+    "title": "Algo se fue volando",
+
+    "sinopsis": [
+      "Un espectáculo unipersonal de humor absurdo, centrado en el personaje de Marote, que transita con ternura y comicidad el proceso de un duelo muy particular: la pérdida de ese objeto preciado que tanto cuidó.",
+      "A través de una sucesión de escenas visuales, físicas y simbólicas, Marote atraviesa las distintas etapas del duelo —negación, ira, tristeza y aceptación—, cargando una bolsa repleta de recuerdos y objetos con los que juega, transforma y resignifica.",
+      "La obra propone un lenguaje escénico sin palabras, sostenido en el cuerpo, los objetos, el ritmo y la imagen, donde lo absurdo y lo poético se entrelazan para hablar, sin decir, de lo que ya no está."
+    ],
+
+    "moreInfo": "Más información",
+
+    "sections": [
+      {
+        "title": "Formato",
+        "content": "Espectáculo unipersonal\nSin texto hablado\nTeatro físico / humor absurdo / poesía visual\nDuración aproximada: 35 minutos\nPúblico: todas las edades\nIdeal y adaptable a espacios no convencionales, calle, festivales, carpas, escenarios o ruedos, con o sin infraestructura técnica."
+      },
+      {
+        "title": "Equipo creativo",
+        "content": "Intérprete: Norman Pereyra Wagner (Marote)\nIdea original y dramaturgia; producción general y supervisión artística: Carolina Dumrauf\nDirección: Mariana Mora\nCreación y dirección coreográfica: Lova Paula Lostra\nMúsica original: Randall Lewer\nDiseño de vestuario: Candela Chirino\nRealización de vestuario: Pato García\nDiseño y realización de objetos escénicos: Fiorella Brignani\nDiseño y ejecución de maquillaje: La Bicha Soluciones Artísticas\nDiseño gráfico e ilustración: Lucía Cases\nAsistente de producción: Julen Tavo Andiarena Lattes\nProductora asociada y asistente de producción en gira: Gabriela Dumrauf."
+      },
+      {
+        "title": "Estilo escénico y referencias",
+        "content": "Humor físico, absurdo, silencioso\nJuego con objetos, uso simbólico de elementos cotidianos\nEstética y referencias: Clown contemporáneo y circo-teatro."
+      },
+      {
+        "title": "Temas que atraviesa",
+        "content": "El paso del tiempo\nEl apego a la imagen propia\nLa memoria y los objetos como portales al pasado\nLa identidad y su transformación."
+      },
+      {
+        "title": "Objetivo del proyecto",
+        "content": "Crear un espectáculo escénico breve, con fuerte carga visual, musical y emocional, que conecte con un público amplio desde el humor, la ternura y la nostalgia.\nLa propuesta está basada en una dramaturgia sin texto, centrada en el cuerpo, la música y los objetos, con una estética poética, absurda y delicada.\nEl proyecto se desarrollará a lo largo de 2025 con miras a realizar funciones y participar en festivales durante:\nTemporada de verano 2026 en Mar del Plata (Argentina)\nGira de verano europeo 2026 (junio – septiembre)."
+      }
+    ]
+  },
+  "team": {
+    "title": "Equipo Creativo",
+  
+    "roles": {
+      "norman": "Intérprete (Marote)",
+      "carolina": "Autora; producción y dirección general",
+      "mariana": "Dirección",
+      "lova": "Creación y dirección coreográfica",
+      "randall": "Música original",
+      "candela": "Diseño de vestuario",
+      "pato": "Realización de vestuario",
+      "fiorella": "Diseño y realización de objetos escénicos",
+      "labicha": "Diseño y ejecución de maquillaje",
+      "lucia": "Diseño gráfico e ilustración",
+      "fauno": "Diseño web",
+      "julen": "Asistente de producción",
+      "gabriela": "Productora asociada y asistente de producción en gira"
+    },
+  
+    "bio": {
+      "Lucía Cases": {
+        "text": "Diseñadora gráfica, ilustradora y tatuadora. Su trabajo se mueve entre lo digital y lo manual, explorando diferentes lenguajes visuales para dar forma a ideas, emociones y conceptos. Le interesa la comunicación visual como una herramienta expresiva y cercana, donde cada proyecto mantenga coherencia, identidad y una huella personal. Su proceso parte de lo intuitivo y se apoya en la técnica, buscando equilibrio entre lo estético y lo emocional. Entiende la creación visual como una manera de conectar con quien mira, con quien usa y con quien siente.",
+        "mail": "dgluciacases@gmail.com",
+        "insta": "@luciacases"
+      },
+  
+      "Candela Chirino": {
+        "text": "Docente de distintas universidades y Escuelas de Arte de la ciudad de Mar del Plata. Diseñadora Industrial, Directora de Arte y Vestuarista para medios audiovisuales y teatro. Trabajó en producciones argentinas asociadas con Estados Unidos, Brasil, Honduras, España, Arabia Saudita, Francia y Suecia. Varios de sus trabajos han recibido premios y sido proyectados en reconocidos festivales internacionales de cine. Colabora con compañías de teatro independiente y música experimental de Mar del Plata.",
+        "mail": "dicandelachirino@gmail.com",
+        "insta": "@chirinocandela"
+      },
+  
+      "Fiorella Brignani": {
+        "text": "Desde siempre tuvo una profunda sensibilidad artística y una conexión natural con el arte como forma de expresión. Su recorrido abarca la música, la danza, las artes plásticas y la cerámica. Crear y materializar objetos es una de sus facetas más genuinas, donde combina intuición, juego y sensibilidad estética. Su universo creativo se nutre del movimiento, los materiales y las emociones que los atraviesan."
+      },
+  
+      "Paula Lostra": {
+        "text": "Coreógrafa, performer e investigadora somática, especializada en Improvisación y Danza Contemporánea. Es Maestra Nacional de Danza y Licenciada en Composición Coreográfica por la Universidad Nacional de Artes. Formada además en el School for Body-Mind Centering® (BMC®). Es cofundadora del Festival de Cuerpx, Arte y Género y directora de la compañía SOMA transfeminista. Su trabajo fusiona presencia somática, cuerpo-género e improvisación, con un fuerte compromiso político y poético.",
+        "mail": "danzatransfeminista@gmail.com",
+        "insta": "@paulalostra"
+      },
+  
+      "Randall Lewer": {
+        "text": "Músico argentino, guitarrista y compositor, con trayectoria en grabación y producción musical. Se formó en Fattoria de Sonido (Mar del Plata) como técnico de sonido y productor musical. Cursó el profesorado de música en el Conservatorio Luis Gianneo y también es autodidacta. Trabajó con bandas argentinas como Toro, Los Chefferson y Tina La Vedette, entre otras. Además, desarrolló proyectos de teatro y performance, reflejados en su obra local MercurioHg. Actualmente continúa su formación en Suecia y se desempeña como técnico en Victoria Teatern (Malmö).",
+        "mail": "randallewer@gmail.com",
+        "insta": "@randalllewer"
+      },
+  
+      "Norman Pereyra Wagner": {
+        "text": "Comenzó su recorrido artístico en 2005, formándose en la escuela La Luna Circo, donde incursionó en malabares, acrobacias dúo, acrobacias aéreas y clown. Desde 2011 realiza su espectáculo unipersonal Un mundo en la maleta, presentado en diferentes espacios de Mar del Plata. Entre 2013 y 2019 integró el proyecto Circo de la Audacia y en 2023 fue convocado a trabajar en Cirque Du Liban (Dubái, Emiratos Árabes Unidos).",
+        "mail": "marotepayaso@gmail.com",
+        "insta": "@payaso_marote"
+      },
+  
+      "Gabriela Dumrauf": {
+        "text": "En la adolescencia tuvo su primer encuentro con el arte a través del bajo, tomando clases y participando en una banda. Más adelante estudió fotografía y se recibió en la Escuela de Artes Visuales Martín A. Malharro. Con el tiempo amplió su recorrido hacia las artes escénicas, participando en diferentes proyectos de teatro y circo como asistente de producción. Su mirada combina la sensibilidad visual con el trabajo en equipo y la organización de procesos creativos.",
+        "mail": "gabriela.dumrauf@gmail.com"
+      },
+  
+      "Carolina Dumrauf": {
+        "text": "Productora y gestora artística. Desde fines de 2003 comenzó a incursionar en el arte en un taller de teatro y ampliando su recorrido hacia el cine, la música, la danza, el circo y la narración. Estudió cine y realizó diferentes formaciones vinculadas a la dirección, producción y gestión integral de proyectos artísticos. A lo largo de los años trabajó en festivales nacionales e internacionales, en obras de teatro, proyectos de circo y como manager de bandas. Ha desarrollado de manera integral numerosos proyectos, combinando la sensibilidad creativa con la organización y la producción.",
+        "mail": "carolina.t.dumrauf@gmail.com"
+      },
+  
+      "Julen Tavo Andiarena Lattes": {
+        "text": "Durante su infancia incursionó en la actuación y, más tarde, descubrió su pasión por el detrás de escena. En 2023 se formó en operación de sistemas de sonido e iluminación para espectáculos en vivo. Desde 2014 se desempeña como asistente de producción en obras de teatro, exposiciones de arte y producciones audiovisuales en Mar del Plata.",
+        "insta": "@julentavo"
+      },
+  
+      "La Bicha": {
+        "text": "Grupo creativo y artesano que brinda soluciones a través del arte y algo de magia. Aquella idea que parece una ilusión, ellos la hacen realidad.",
+        "insta": "@labicha.mdp"
+      },
+  
+      "Mariana Mora": {
+        "text": "Actriz, clown y profesora de teatro. Desde hace más de 25 años trabaja en la escena independiente como actriz y directora, en proyectos públicos y privados. Se formó en la Escuela de Experimentación Teatral La Brecha y en la Escuela Municipal de Arte Dramático Angelina Pagano. Es también operadora en Psicología Social y Arte Terapia, integrando el arte como herramienta de salud y encuentro comunitario. Coordina talleres y participa en producciones teatrales, circenses y performáticas en Mar del Plata y otras ciudades.",
+        "insta": "@marianamoramor"
+      },
+  
+      "Pato García": {
+        "text": "",
+        "insta": "@patogarcia.tallertextil"
+      }
+    },
+  
+    "labels": {
+      "email": "Correo",
+      "instagram": "Instagram",
+      "moreInfo": "Más información"
+    }
+  },  
+   "sectionTitle": "Prensa",
+
+  "news": [
+    {
+      "title": "Que Digital - “Algo se fue volando”, el nuevo espectáculo del payaso Marote",
+      "image": "digital",
+      "url": "https://www.google.com/amp/s/quedigital.com.ar/cultura/algo-se-fue-volando-el-nuevo-espectaculo-del-payaso-marote/amp/"
+    },
+    {
+      "title": "La Capital - “Algo se fue volando”, un unipersonal de teatro físico",
+      "image": "LN",
+      "url": "https://www.google.com/amp/s/www.lacapitalmdp.com/algo-se-fue-volando-un-unipersonal-de-teatro-fisico/amp/"
+    },
+    {
+      "titlePrefix": "0223 - ",
+      "image": "microlink",
+      "url": "https://www.0223.com.ar/nota/2025-10-12-12-40-0-algo-se-fue-volando-marote-presenta-su-nuevo-espectaculo-en-mar-del-plata"
+    },
+    {
+      "title": "FM del Sol - “Algo se fue volando”, un unipersonal de teatro físico",
+      "image": "FM",
+      "url": "https://fmdelsol.com.ar/?p=11733"
+    }
+  ],
+  "contact": {
+    "title": "Contáctanos",
+    "success": "✅ ¡Tu mensaje fue enviado con éxito!",
+    "fields": {
+      "name": "Tu nombre",
+      "email": "Tu email",
+      "message": "Tu mensaje"
+    },
+    "actions": {
+      "sending": "Enviando...",
+      "send": "Enviar mensaje"
+    },
+    "errors": {
+      "server": "No se pudo conectar con el servidor",
+      "unknown": "Hubo un error desconocido"
+    }
+  },"footer": {
+    "title":"Algo se fue volando",
+    "quote": "Un viaje donde lo absurdo y lo poetico se entrelazan."
+  }
+  
+}

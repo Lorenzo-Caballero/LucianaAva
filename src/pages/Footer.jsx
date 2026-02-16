@@ -1,8 +1,12 @@
+// src/components/Footer.jsx
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import Logo from "../assets/algosefuevolando.png";
-import "./Footer.css"; // Para la animación del gradiente
+import "./Footer.css";
 
 export default function Footer() {
+  const { t } = useTranslation();
+
   return (
     <footer className="relative w-full bg-gradient-animate py-6">
       <div className="mx-auto max-w-4xl px-6 flex flex-col items-center text-center gap-6">
@@ -32,9 +36,9 @@ export default function Footer() {
           transition={{ duration: 1 }}
           className="text-sm md:text-lg font-semibold text-white drop-shadow-sm"
         >
-          © {new Date().getFullYear()} Algo se fue volando · Un viaje donde lo{" "}
-          <span className="font-medium text-[#8A5CA4]">absurdo</span> y lo{" "}
-          <span className="font-medium text-[#f33c91]">poético</span> se entrelazan.
+          © {new Date().getFullYear()} {t("footer.title")} · {" "}
+          {t("footer.quote")
+          }
         </motion.p>
       </div>
     </footer>
